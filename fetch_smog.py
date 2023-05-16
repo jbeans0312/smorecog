@@ -18,6 +18,9 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 smog_link = "https://open.spotify.com/playlist/1LF6XeBlaD0yrDQ0t5rdEb?si=7a138d8c8c3540fb"
 smog_URI = smog_link.split('/')[-1].split('?')[0]
 
+# scrape the playlist to oracalize
+user_link = "https://open.spotify.com/playlist/6uUSwItRjxjRK4oPQxjvkl?si=50489dd815474c74"
+user_URI = user_link.split('/')[-1].split('?')[0]
 
 # get all tracks on playlist (boo spotify api query limits)
 
@@ -99,6 +102,12 @@ def get_playlist_tracks_more_than_100_songs(uri):
     return features_df
 
 
-df = get_playlist_tracks_more_than_100_songs(smog_URI)
-df = df.dropna()
-df.to_csv('./smog_data/smog.csv', index=False, encoding='utf8')
+print('Scraping smog data')
+smog_df = get_playlist_tracks_more_than_100_songs(smog_URI)
+smog_df = smog_df.dropna()
+smog_df.to_csv('./smog_data/smog.csv', index=False, encoding='utf8')
+
+print('Scraping user data')
+user_df = get_playlist_tracks_more_than_100_songs(user_URI)
+user_df = user_df.dropna()
+user_df.to_csv('./smog_data/user.csv', index=False, encoding='utf8')
