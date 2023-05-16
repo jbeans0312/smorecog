@@ -19,14 +19,19 @@ smog_URI = smog_link.split('/')[-1].split('?')[0]
 # get all tracks on playlist (boo spotify api query limits)
 def get_all_tracks(uri):
     tracks_response = sp.playlist_items(uri)
-    tracks = [x["track"]["uri"] for x in tracks_response["items"]]
+    t = [x["track"]["uri"] for x in tracks_response["items"]]
     while tracks_response["next"]:
         tracks_response = sp.next(tracks_response)
-        tracks.extend([x["track"]["uri"] for x in tracks_response["items"]])
-    return tracks
+        t.extend([x["track"]["uri"] for x in tracks_response["items"]])
+    return t
 
 
-t = get_all_tracks(smog_URI)
-playlist_size = len(t)
-print(t)
-print(playlist_size)
+tracks = get_all_tracks(smog_URI)
+playlist_size = len(tracks)
+
+features = []
+
+for track in tracks:
+    features.extend(sp.audio_features(tracks[0]))
+
+print(features)
