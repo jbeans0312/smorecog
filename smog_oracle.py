@@ -1,10 +1,13 @@
 import pandas as pd
 from sklearn.svm import LinearSVC
 from sklearn.multiclass import OneVsRestClassifier
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler
 
 smog_df = pd.read_csv('./smog_data/smog.csv')
 smog_df.head()
+smog_df['y'] = 1
+
+y_train = smog_df.iloc[:, :-1]
 
 user_df = pd.read_csv('./smog_data/user.csv')
 user_df.head()
@@ -16,9 +19,8 @@ feature_cols = ['danceability', 'energy', 'key', 'loudness',
 
 
 # normalizing the dataset
-scaler = MinMaxScaler()
-normalized_df = scaler.fit_transform(smog_df[feature_cols])
+scaler = StandardScaler()
 
-# generate cosine similarity matrix
-indices = pd.Series(smog_df.index, index=smog_df['title']).drop_duplicates()
+
+
 
