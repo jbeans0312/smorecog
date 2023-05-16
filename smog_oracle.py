@@ -1,13 +1,24 @@
-import matplotlib.pyplot as plt
 import pandas as pd
+from sklearn.svm import LinearSVC
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.preprocessing import MinMaxScaler
 
-plt.rcParams["figure.figsize"] = [7.50, 3.40]
-plt.rcParams["figure.autolayout"] = True
+smog_df = pd.read_csv('./smog_data/smog.csv')
+smog_df.head()
 
-headers = ['danceability', 'energy', 'key', 'loudness',
-           'mode', 'speechiness', 'acousticness',
-           'instrumentalness', 'liveness', 'valence',
-           'tempo', 'type', 'id', 'uri', 'track_href',
-           'analysis_url', 'duration_ms', 'time_signature']
+user_df = pd.read_csv('./smog_data/user.csv')
+user_df.head()
 
-df = pd.read_csv('./smog_data/smog.csv', names=headers)
+feature_cols = ['danceability', 'energy', 'key', 'loudness',
+                'mode', 'acousticness', 'instrumentalness',
+                'liveness', 'valence', 'tempo', 'duration_ms',
+                'time_signature']
+
+
+# normalizing the dataset
+scaler = MinMaxScaler()
+normalized_df = scaler.fit_transform(smog_df[feature_cols])
+
+# generate cosine similarity matrix
+indices = pd.Series(smog_df.index, index=smog_df['title']).drop_duplicates()
+
