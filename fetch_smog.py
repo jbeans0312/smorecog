@@ -104,6 +104,6 @@ def get_playlist_tracks_more_than_100_songs(uri):
 print('Scraping smog data')
 smog_df = get_playlist_tracks_more_than_100_songs(smog_URI)
 smog_df = smog_df.dropna()
-smog_df.to_csv('./smog_data/smog.csv', index=False, encoding='utf8')
+smog_df.to_csv('./smog_data/pretty_smog.csv', index=False, encoding='utf8')
 
 
