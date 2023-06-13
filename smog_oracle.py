@@ -1,7 +1,4 @@
 import pandas as pd
-from sklearn.svm import LinearSVC
-from sklearn.multiclass import OneVsRestClassifier
-from sklearn.preprocessing import StandardScaler
 
 smog_df = pd.read_csv('./smog_data/smog.csv')
 smog_df.head()
