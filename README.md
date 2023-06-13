@@ -8,3 +8,4 @@
 
 ### Index 
 - `fetch_smog` : loads playlist data into csv
+- `smog_oracle` : model generation
