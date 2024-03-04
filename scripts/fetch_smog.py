@@ -5,23 +5,10 @@ from dotenv import load_dotenv
 from spotipy.oauth2 import SpotifyClientCredentials
 from tqdm import tqdm
 
-load_dotenv()
-
-# spotipy authentication
-client_credentials_manager = \
-    SpotifyClientCredentials(client_id=os.getenv("SECRET1"), client_secret=os.getenv("SECRET2"))
-sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-
-# now that we are authenticated we can access da api
-# scrape the smog tracks
-smog_link = "https://open.spotify.com/playlist/1LF6XeBlaD0yrDQ0t5rdEb?si=7a138d8c8c3540fb"
-smog_URI = smog_link.split('/')[-1].split('?')[0]
-
-
-# get all tracks on playlist (boo spotify api query limits)
-
-
-def get_playlist_tracks_more_than_100_songs(uri):
+def fetch_smog(uri, sp):
+    result = sp.playlist(uri, fields="name")
+    print(result)
+    name = result["name"]
     results = sp.playlist_items(uri)
     tracks = results['items']
     while results['next']:
@@ -98,12 +85,4 @@ def get_playlist_tracks_more_than_100_songs(uri):
                 except:
                     continue
 
-    return features_df
-
-
-print('Scraping smog data')
-smog_df = get_playlist_tracks_more_than_100_songs(smog_URI)
-smog_df = smog_df.dropna()
-smog_df.to_csv('./smog_data/pretty_smog.csv', index=False, encoding='utf8')
-
-
+    return name, features_df
