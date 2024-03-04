@@ -1,17 +1,15 @@
 # SMORECOG
-This library takes a Spotify playlist and creates a visual representation of the playlist's overall vibe.
+This notebook takes a Spotify playlist and creates a visual representation of the playlist's overall vibe using the following attributes
 
-We use spotipy to fetch song information, and we take the following qualities into account:
-
-### Danceability
+**Dancibility**
 - The higher the value, the easier it is to dance to this song.
-### Energy
+**Energy**
 - The energy of a song, the higher the value, the more energetic.
-### Loudness
+**Loudness**
 - The higher the value, the louder the song (in dB).
-### Acousticness
+**Acousticness**
 - The higher the value the more acoustic the song is.
-### Instrumentalness
+**Instrumentalness**
 - This value represents the amount of vocals in the song.
-### Valence
+**Valence**
 - The higher the value, the more positive mood for the song.
